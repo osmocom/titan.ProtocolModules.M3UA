@@ -1,0 +1,112 @@
+---
+Author: Ferenc Kovács
+Version: 198 17-CNL 113 536, Rev. A
+Date: 2008-01-14
+
+---
+= M3UA Protocol Modules for TTCN-3 Toolset with TITAN, User Guide
+:author: Ferenc Kovács
+:revnumber: 198 17-CNL 113 536, Rev. A
+:revdate: 2008-01-14
+:toc:
+
+== About This Document
+
+=== How to Read This Document
+
+This is the User Guide for the M3UA protocol module. The M3UA protocol module is developed for the TTCN-3 Toolset with TITAN. This document should be read together with Function Specification <<_4, [4]>>.
+
+=== Presumed Knowledge
+
+To use this protocol module the knowledge of the TTCN-3 language <<_1, [1]>> is essential.
+
+== System Requirements
+
+Protocol modules are a set of TTCN-3 source code files that can be used as part of TTCN-3 test suites only. Hence, protocol modules alone do not put specific requirements on the system used. However in order to compile and execute a TTCN-3 test suite using the set of protocol modules the following system requirements must be satisfied:
+
+* TITAN TTCN-3 Test Executor installed. For installation guide see <<_3, [3]>>.
+
+= Protocol Modules
+
+== Overview
+
+Protocol modules implement the message structures of the corresponding protocol in a formalized way, using the standard specification language TTCN-3. This allows defining of test data (templates) in the TTCN-3 language <<_1, [1]>> and correctly encoding/decoding messages when executing test suites using the TITAN TTCN-3 test environment.
+
+Protocol modules are using TITAN’s RAW encoding attributes <<_2, [2]>> and hence are usable with the TITAN test toolset only.
+
+The table below contains the implemented M3UA messages and the corresponding TTCN-3 type records. Using those type records, templates can be defined to send and receive a given message.
+
+[width="100%",cols="35%,15%,50%",options="header",]
+|=======================================================================
+|Message name |Reference |Corresponding type record in *M3UA_Types.ttcn*
+|Payload Data Message |<<_5, [5]>> 3.3.1. |M3UA_DATA
+|Destination Unavailable |<<_5, [5]>> 3.4.1. |M3UA_DUNA
+|Destination Available |<<_5, [5]>> 3.4.2. |M3UA_DAVA
+|Destination State Audit |<<_5, [5]>> 3.4.3. |M3UA_DAUD
+|Signalling Congestion |<<_5, [5]>> 3.4.4. |M3UA_SCON
+|Destination User Part Unavailable |<<_5, [5]>> 3.4.5. |M3UA_DUPU
+|Destination Restricted |<<_5, [5]>> 3.4.6. |M3UA_DRST
+|ASP Up |<<_5, [5]>> 3.5.1. |M3UA_ASPUP
+|ASP Up Acknowledgement |<<_5, [5]>> 3.5.2. |M3UA_ASPUP_Ack
+|ASP Down |<<_5, [5]>> 3.5.3. |M3UA_ASPDN
+|ASP Down Acknowledgement |<<_5, [5]>> 3.5.4. |M3UA_ASPDN_Ack
+|Heartbeat |<<_5, [5]>> 3.5.5. |M3UA_BEAT
+|Heartbeat Acknowledgement |<<_5, [5]>> 3.5.6. |M3UA_BEAT_Ack
+|Registration Request |<<_5, [5]>> 3.6.1. |M3UA_REG_REQ
+|Registration Response |<<_5, [5]>> 3.6.2. |M3UA_REG_RSP
+|Deregistration Request |<<_5, [5]>> 3.6.3. |M3UA_DEREG_REQ
+|Deregistration Response |<<_5, [5]>> 3.6.4. |M3UA_DEREG_RSP
+|ASP Active |<<_5, [5]>> 3.7.1. |M3UA_ASPAC
+|ASP Active Ack |<<_5, [5]>> 3.7.2. |M3UA_ASPAC_Ack
+|ASP Inactive |<<_5, [5]>> 3.7.3. |M3UA_ASPIA
+|ASP Inactive Ack |<<_5, [5]>> 3.7.4. |M3UA_ASPIA_Ack
+|Error |<<_5, [5]>> 3.8.1. |M3UA_ERR
+|Notify |<<_5, [5]>> 3.8.2. |M3UA_NOTIFY
+|=======================================================================
+
+== Installation
+
+The set of protocol modules can be used in developing TTCN-3 test suites using any text editor. However to make the work more efficient a TTCN-3-enabled text editor is recommended (e.g. `nedit`, `xemacs`). Since the M3UA protocol module is used as a part of a TTCN-3 test suite, this requires TTCN-3 Test Executor and a C compiler be installed before the module can be compiled and executed together with other parts of the test suite. For more details on the installation of TTCN-3 Test Executor see the relevant parts of <<_2, [2]>>.
+
+== Encoding and Decoding Functions
+
+For encoding and decoding the message two functions are available:
+
+* Function `enc_PDU_M3UA` makes simple RAW encoding without any modification on the input M3UA message.
+* Function `dec_PDU_M3UA` makes simple RAW decoding without any modification on the input octetstring.
+
+= Terminology
+
+TITAN TTCN-3 Test Executor.
+
+= Abbreviations
+
+IETF:: Internet Engineering Task Force
+
+IP:: Internet Protocol
+
+MTP3:: Message Transfer Part 3
+
+M3UA:: MTP3 User Adaptation Part
+
+RFC:: Request for Comments
+
+TTCN-3:: Testing and Test Control Notation version 3
+
+= References
+
+[[_1]]
+[1] ETSI ES 201 873–1 v.3.1.1 (06/2005)The Testing and Test Control Notation version 3. Part 1: Core Language
+
+[[_2]]
+[2] Programmer’s Technical Reference for the TITAN TTCN-3 Test Executor
+
+[[_3]]
+[3] Installation Guide for the TITAN TTCN-3 Test Executor
+
+[[_4]]
+[4] M3UA Protocol Modules for TTCN-3 Toolset with TITAN, Function Specification
+
+[[_5]]
+[5] IETF https://tools.ietf.org/html/rfc3332[RFC 3332] +
+Signaling System 7 (SS7) Message Transfer Part 3 (MTP3) – User Adaptation Layer (M3UA)

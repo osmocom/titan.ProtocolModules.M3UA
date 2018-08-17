@@ -1,0 +1,102 @@
+---
+Author: Ferenc Kovács
+Version: 155 17-CNL 113 536, Rev. A
+Date: 2008-01-14
+
+---
+= M3UA Protocol Modules for TTCN-3 Toolset with TITAN, Function Specification
+:author: Ferenc Kovács
+:revnumber: 155 17-CNL 113 536, Rev. A
+:revdate: 2008-01-14
+:toc:
+
+== How to Read This Document
+
+This is the Function Specification for the set of M3UA protocol modules. M3UA protocol modules are developed for the TTCN-3 Toolset with TITAN.
+
+== Scope
+
+The purpose of this document is to specify the content of the M3UA protocol modules.
+
+= General
+
+Protocol modules implement the message structures of the related protocol in a formalized way, using the standard specification language TTCN-3. This allows defining of test data (templates) in the TTCN-3 language and correctly encoding/decoding messages when executing test suites using the TITAN TTCN-3 test environment.
+
+Protocol modules are using TITAN’s RAW encoding attributes <<_1, [1]>> and hence are usable with the TITAN test toolset only.
+
+= Functional Specification
+
+== Protocol Version Implemented
+
+This protocol module contains the protocol messages and elements of the M3UA protocol (see <<_4, [4]>>).
+
+[[modifications-deviations-related-to-the-protocol-specification]]
+== Modifications/Deviations Related to the Protocol Specification
+
+=== Implemented Messages
+
+All message types listed in protocol description <<_4, [4]>> are implemented.
+
+[[protocol-modifications-deviations]]
+=== Protocol Modifications/Deviations
+
+None.
+
+[[encoding-decoding-and-other-related-functions]]
+== Encoding/Decoding and Other Related Functions
+
+This product contains encoding/decoding functions that provide for the correct encoding of messages when sent from TITAN and correct decoding of messages when received by TITAN. For encoding and decoding the message two functions are available:
+
+* Function `enc_PDU_M3UA` makes simple RAW encoding without any modification on the input M3UA message.
+* Function `dec_PDU_M3UA` makes simple RAW decoding without any modification on the input octetstring.
+
+Implemented encoding/decoding functions:
+
+[cols=3*,options=header]
+|===
+
+|Name
+|Type of formal parameters
+|Type of return value
+
+|`enc_PDU_M3UA`
+|PDU_M3UA
+|octetstring
+
+|`dec_PDU_M3UA`
+|octetstring
+|PDU_M3UA
+|===
+
+= Terminology
+
+TITAN TTCN-3 Test Executor.
+
+= Abbreviations
+
+IETF:: Internet Engineering Task Force
+
+IP:: Internet Protocol
+
+MTP3:: Message Transfer Part 3
+
+M3UA:: MTP3 User Adaptation Layer
+
+RFC:: Request for Comments
+
+TTCN-3:: Testing and Test Control Notation version 3
+
+= References
+
+[[_1]]
+[1] Programmer’s Technical Reference for the TITAN TTCN-3 Test Executor
+
+[[_2]]
+[2] ETSI ES 201 873-1 v.3.1.1 (06/2005)The Testing and Test Control Notation version 3. Part 1: Core Language
+
+[[_3]]
+[3] M3UA Protocol Modules for TTCN-3 Toolset with TITAN, User Guide
+
+[[_4]]
+[4] IETF https://tools.ietf.org/html/rfc3332[RFC 3332] +
+Signaling System 7 (SS7) Message Transfer Part 3 (MTP3) – User Adaptation Layer (M3UA)
