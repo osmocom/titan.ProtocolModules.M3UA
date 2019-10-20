@@ -199,6 +199,16 @@ type record M3UA_Traffic_Mode_Type
          variant (lengthInd) "BYTEORDER(last)";
        }
 
+type record M3UA_Status
+{
+  OCT2       tag,
+  integer    lengthInd,
+  OCT2       statusType,
+  OCT2       statusInfo
+} with { variant (lengthInd) "LENGTHTO (tag,lengthInd,statusType,statusInfo)";
+         variant (lengthInd) "FIELDLENGTH(16)";
+         variant (lengthInd) "BYTEORDER(last)";
+       }
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++
 //PDUs
@@ -240,17 +250,24 @@ type set M3UA_ERR_MessageParameters
 //++++++++++++++++++++++++++++++++++++++++++++++++++
 type record M3UA_NOTIFY
 {
-  OCT1                       version,
-  OCT1                       reserved,
-  OCT2                       messageClassAndType,
-  integer                    messageLength,
-  octetstring                messageParameters
+  OCT1                          version,
+  OCT1                          reserved,
+  OCT2                          messageClassAndType,
+  integer                       messageLength,
+  M3UA_NOTIFY_MessageParameters messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
                                            messageLength,messageParameters)"; 
          variant (messageLength) "FIELDLENGTH(32)";
          variant (messageLength) "BYTEORDER(last)"; 
        }
 
+type set M3UA_NOTIFY_MessageParameters
+{
+  M3UA_Status              status,
+  M3UA_ASP_Identifier      aSP_Identifier optional,
+  M3UA_Routing_Context     routing_Context optional,
+  M3UA_Info_String         info_String optional
+}
 
 //  M3UA_DATA PDU
 //++++++++++++++++++++++++++++++++++++++++++++++++++
