@@ -210,6 +210,133 @@ type record M3UA_Status
          variant (lengthInd) "BYTEORDER(last)";
        }
 
+type record M3UA_Local_Routing_Key_Id
+{
+  OCT2       tag,
+  integer    lengthInd,
+  OCT4       localRkId
+} with { variant (lengthInd) "LENGTHTO (tag,lengthInd,localRkId)";
+         variant (lengthInd) "FIELDLENGTH(16)";
+         variant (lengthInd) "BYTEORDER(last)";
+       }
+
+type record M3UA_Destination_PointCode
+{
+  OCT2            tag,
+  integer         lengthInd,
+  M3UA_Point_Code pointCode
+} with { variant (lengthInd) "LENGTHTO (tag,lengthInd,pointCode)";
+         variant (lengthInd) "FIELDLENGTH(16)";
+         variant (lengthInd) "BYTEORDER(last)";
+       }
+
+type record M3UA_Service_Indicators
+{
+  OCT2       tag,
+  integer    lengthInd,
+  octetstring serviceIndicators
+} with { variant (lengthInd) "LENGTHTO (tag,lengthInd,serviceIndicators)";
+         variant (lengthInd) "FIELDLENGTH(16)";
+         variant (lengthInd) "BYTEORDER(last)";
+       }
+
+type record M3UA_OPC_List
+{
+  OCT2             tag,
+  integer          lengthInd,
+  M3UA_Point_Codes pointCodes
+} with { variant (lengthInd) "LENGTHTO (tag,lengthInd,pointCodes)";
+         variant (lengthInd) "FIELDLENGTH(16)";
+         variant (lengthInd) "BYTEORDER(last)";
+       }
+
+type record M3UA_Routing_Key
+{
+  OCT2                        tag,
+  integer                     lengthInd,
+  M3UA_Routing_Key_Parameters routingKey
+} with { variant (lengthInd) "LENGTHTO (tag,lengthInd,routingKey)";
+         variant (lengthInd) "FIELDLENGTH(16)";
+         variant (lengthInd) "BYTEORDER(last)";
+       }
+
+type record M3UA_Registration_Status
+{
+  OCT2                        tag,
+  integer                     lengthInd,
+  OCT4			      registrationStatus
+} with { variant (lengthInd) "LENGTHTO (tag,lengthInd,registrationStatus)";
+         variant (lengthInd) "FIELDLENGTH(16)";
+         variant (lengthInd) "BYTEORDER(last)";
+       }
+
+type record M3UA_Deregistration_Status
+{
+  OCT2                        tag,
+  integer                     lengthInd,
+  OCT4			      deregistrationStatus
+} with { variant (lengthInd) "LENGTHTO (tag,lengthInd,deregistrationStatus)";
+         variant (lengthInd) "FIELDLENGTH(16)";
+         variant (lengthInd) "BYTEORDER(last)";
+       }
+
+type set M3UA_Routing_Key_Parameters
+{
+  M3UA_Local_Routing_Key_Id   local_Routing_Key_Id,
+  M3UA_Routing_Context        routing_Context optional,
+  M3UA_Traffic_Mode_Type      traffic_Mode_Type optional,
+  M3UA_Destination_PointCode  destination_Point_Code,
+  M3UA_Network_Appearance     network_Appearance optional,
+  M3UA_Service_Indicators     service_Indicators optional,
+  M3UA_OPC_List               opc_List optional
+} with { variant "TAG(local_Routing_Key_Id,   tag = '020a'O;
+                      routing_Context,        tag = '0006'O;
+                      traffic_Mode_Type,      tag = '000b'O;
+                      destination_Point_Code, tag = '020b'O;
+                      network_Appearance,     tag = '0200'O;
+                      service_Indicators,     tag = '020c'O;
+                      opc_List,               tag = '020e'O; )"
+       }
+
+type record M3UA_Registration_Result
+{
+  OCT2                                tag,
+  integer                             lengthInd,
+  M3UA_Registration_Result_Parameters registrationResult
+} with { variant (lengthInd) "LENGTHTO (tag,lengthInd,registrationResult)";
+         variant (lengthInd) "FIELDLENGTH(16)";
+         variant (lengthInd) "BYTEORDER(last)";
+       }
+
+type set M3UA_Registration_Result_Parameters
+{
+  M3UA_Local_Routing_Key_Id  local_Routing_Key_Id,
+  M3UA_Registration_Status   registration_Status,
+  M3UA_Routing_Context       routing_Context
+} with { variant "TAG(local_Routing_Key_Id, tag = '020a'O;
+                      registration_Status,  tag = '0212'O;
+                      routing_Context,      tag = '0006'O; )"
+       }
+
+type record M3UA_Deregistration_Result
+{
+  OCT2                                  tag,
+  integer                               lengthInd,
+  M3UA_Deregistration_Result_Parameters deregistrationResult
+} with { variant (lengthInd) "LENGTHTO (tag,lengthInd,deregistrationResult)";
+         variant (lengthInd) "FIELDLENGTH(16)";
+         variant (lengthInd) "BYTEORDER(last)";
+       }
+
+type set M3UA_Deregistration_Result_Parameters
+{
+  M3UA_Routing_Context       routing_Context,
+  M3UA_Deregistration_Status deregistration_Status
+} with { variant "TAG(routing_Context,       tag = '0006'O;
+                      deregistration_Status, tag = '0213'O; )"
+       }
+
+
 //++++++++++++++++++++++++++++++++++++++++++++++++++
 //PDUs
 //++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -697,7 +824,6 @@ type set M3UA_ASPIA_Ack_MessageParameters
  
 //  M3UA_REG_REQ
 //  NOTE1 : REG REQ should not come and will be dropped if it comes
-//  NOTE2 : messageParameters is simpified implementation as octetstring
 //++++++++++++++++++++++++++++++++++++++++++++++++++
 type record M3UA_REG_REQ 
 {                
@@ -705,17 +831,17 @@ type record M3UA_REG_REQ
   OCT1                        reserved,
   OCT2                        messageClassAndType,
   integer                     messageLength,
-  octetstring                 messageParameters
+  M3UA_Routing_Keys           messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
                                            messageLength,messageParameters)"; 
          variant (messageLength) "FIELDLENGTH(32)";
          variant (messageLength) "BYTEORDER(last)"; 
        }
- 
- 
+
+type record of M3UA_Routing_Key M3UA_Routing_Keys;
+
 //  M3UA_REG_RSP
 //  NOTE1 : REG RSP should not come and will be dropped if it comes
-//  NOTE2 : messageParameters is simpified implementation as octetstring
 //++++++++++++++++++++++++++++++++++++++++++++++++++
 type record M3UA_REG_RSP 
 {                
@@ -723,17 +849,18 @@ type record M3UA_REG_RSP
   OCT1                        reserved,
   OCT2                        messageClassAndType,
   integer                     messageLength,
-  octetstring                 messageParameters
+  M3UA_Registration_Results   messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
                                            messageLength,messageParameters)"; 
          variant (messageLength) "FIELDLENGTH(32)";
          variant (messageLength) "BYTEORDER(last)"; 
        }
- 
- 
+
+type record of M3UA_Registration_Result M3UA_Registration_Results;
+
+
 //  M3UA_DEREG_REQ
 //  NOTE1 : DEREG REQ should not come and will be dropped if it comes
-//  NOTE2 : messageParameters is simpified implementation as octetstring
 //++++++++++++++++++++++++++++++++++++++++++++++++++
 type record M3UA_DEREG_REQ 
 {                
@@ -741,17 +868,21 @@ type record M3UA_DEREG_REQ
   OCT1                        reserved,
   OCT2                        messageClassAndType,
   integer                     messageLength,
-  octetstring                 messageParameters
+  M3UA_DEREG_REQ_MsgParams    messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
                                            messageLength,messageParameters)"; 
          variant (messageLength) "FIELDLENGTH(32)";
          variant (messageLength) "BYTEORDER(last)"; 
        }
-  
- 
+
+type set M3UA_DEREG_REQ_MsgParams
+{
+  M3UA_Routing_Context  routing_Context
+} with { variant "TAG(routing_Context, tag = '0006'O; )"
+       }
+
 //  M3UA_DEREG_RSP
 //  NOTE1 : DEREG RSP should not come and will be dropped if it comes
-//  NOTE2 : messageParameters is simpified implementation as octetstring
 //++++++++++++++++++++++++++++++++++++++++++++++++++
 type record M3UA_DEREG_RSP 
 {                
@@ -759,13 +890,14 @@ type record M3UA_DEREG_RSP
   OCT1                        reserved,
   OCT2                        messageClassAndType,
   integer                     messageLength,
-  octetstring                 messageParameters
+  M3UA_Deregistration_Results messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
                                            messageLength,messageParameters)"; 
          variant (messageLength) "FIELDLENGTH(32)";
          variant (messageLength) "BYTEORDER(last)"; 
        }
- 
+
+type record of M3UA_Deregistration_Result M3UA_Deregistration_Results;
 
 // Top level PDU
 //************************************************************************
