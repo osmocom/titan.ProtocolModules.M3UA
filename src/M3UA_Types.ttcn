@@ -18,7 +18,7 @@
 
 module M3UA_Types {
 
-import from General_Types all; 
+import from General_Types all;
 
 external function enc_PDU_M3UA(in PDU_M3UA pdu) return octetstring
 with { extension "prototype(convert)"
@@ -30,7 +30,7 @@ with { extension "prototype(convert)"
        extension "decode(RAW)"
      }
 
-//++++++++++++++++++++++++++++++++++++++++++++++++++      
+//++++++++++++++++++++++++++++++++++++++++++++++++++
 // M3UA PARAMETERS
 //++++++++++++++++++++++++++++++++++++++++++++++++++
 type octetstring M3UA_OCT0_255 length (0..255);
@@ -104,7 +104,7 @@ type record M3UA_Correlation_ID
          variant (lengthInd) "FIELDLENGTH(16)";
          variant (lengthInd) "BYTEORDER(last)";
        }
-      
+
 type record M3UA_Protocol_Data
 {
   OCT2        tag,
@@ -127,21 +127,21 @@ type record M3UA_Info_String
 {
   OCT2          tag,
   integer       lengthInd,
-  M3UA_OCT0_255 infoString 
+  M3UA_OCT0_255 infoString
 } with { variant (lengthInd) "LENGTHTO(tag,lengthInd,infoString)";
          variant (lengthInd) "FIELDLENGTH(16)";
          variant (lengthInd) "BYTEORDER(last)";
          variant "PADDING(dword32)";
        }
 
-type record  M3UA_Concerned_Destination 
+type record  M3UA_Concerned_Destination
 {
   OCT2      tag,
   integer   lengthInd,
   OCT1      reserved,
   OCT3      concernedDestination
 } with { variant (lengthInd) "LENGTHTO(tag,lengthInd,reserved,
-                                       concernedDestination)"; 
+                                       concernedDestination)";
          variant (lengthInd) "FIELDLENGTH(16)";
          variant (lengthInd) "BYTEORDER(last)";
        }
@@ -166,7 +166,7 @@ type record M3UA_User_Cause
 } with { variant (lengthInd) "LENGTHTO(tag,lengthInd,cause,user)";
          variant (lengthInd) "FIELDLENGTH(16)";
          variant (lengthInd) "BYTEORDER(last)";
-        }    
+        }
 
 type record M3UA_ASP_Identifier
 {
@@ -176,7 +176,7 @@ type record M3UA_ASP_Identifier
 } with { variant (lengthInd) "LENGTHTO(tag,lengthInd,aSPIdentifier)";
          variant (lengthInd) "FIELDLENGTH(16)";
          variant (lengthInd) "BYTEORDER(last)";
-       }    
+       }
 
 type record M3UA_Heartbeat_Data
 {
@@ -351,9 +351,9 @@ type record M3UA_ERR
   integer                    messageLength,
   M3UA_ERR_MessageParameters messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
 
 type set M3UA_ERR_MessageParameters
@@ -364,9 +364,9 @@ type set M3UA_ERR_MessageParameters
   M3UA_Network_Appearance     network_Appearance optional,
   M3UA_Diagnostic_information diagnostic_information optional
 } with { variant "TAG(error_Code,             tag = '000C'O;
-                      routing_Context,        tag = '0006'O; 
-                      affected_Point_Codes,   tag = '0012'O; 
-                      network_Appearance,     tag = '0200'O; 
+                      routing_Context,        tag = '0006'O;
+                      affected_Point_Codes,   tag = '0012'O;
+                      network_Appearance,     tag = '0200'O;
                       diagnostic_information, tag = '0007'O; )"
        }
 
@@ -383,9 +383,9 @@ type record M3UA_NOTIFY
   integer                       messageLength,
   M3UA_NOTIFY_MessageParameters messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
 
 type set M3UA_NOTIFY_MessageParameters
@@ -406,9 +406,9 @@ type record M3UA_DATA
   integer                     messageLength,
   M3UA_DATA_MessageParameters messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)";   
+         variant (messageLength) "BYTEORDER(last)";
        }
 
 type set M3UA_DATA_MessageParameters
@@ -418,9 +418,9 @@ type set M3UA_DATA_MessageParameters
   M3UA_Protocol_Data       protocol_Data,
   M3UA_Correlation_ID      correlation_ID optional
 } with { variant "TAG(network_Appearance,   tag = '0200'O;
-                      routing_Context,      tag = '0006'O; 
-                      protocol_Data,        tag = '0210'O; 
-                      correlation_ID,       tag = '0013'O; )"        
+                      routing_Context,      tag = '0006'O;
+                      protocol_Data,        tag = '0210'O;
+                      correlation_ID,       tag = '0013'O; )"
        }
 
 
@@ -434,9 +434,9 @@ type record M3UA_DUNA
   integer                     messageLength,
   M3UA_DUNA_MessageParameters messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)";  
+         variant (messageLength) "BYTEORDER(last)";
        }
 
 type set M3UA_DUNA_MessageParameters
@@ -446,7 +446,7 @@ type set M3UA_DUNA_MessageParameters
   M3UA_Affected_Point_Codes affected_Point_Codes,
   M3UA_Info_String          info_String optional
 } with { variant "TAG(network_Appearance,    tag = '0200'O;
-                      routing_Context,       tag = '0006'O; 
+                      routing_Context,       tag = '0006'O;
                       affected_Point_Codes,  tag = '0012'O;
                       info_String,           tag = '0004'O )"
        }
@@ -462,9 +462,9 @@ type record M3UA_DAVA
   integer                     messageLength,
   M3UA_DAVA_MessageParameters messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)";  
+         variant (messageLength) "BYTEORDER(last)";
        }
 
 type set M3UA_DAVA_MessageParameters
@@ -474,7 +474,7 @@ type set M3UA_DAVA_MessageParameters
   M3UA_Affected_Point_Codes affected_Point_Codes,
   M3UA_Info_String          info_String optional
 } with { variant "TAG(network_Appearance,       tag = '0200'O;
-                      routing_Context,          tag = '0006'O; 
+                      routing_Context,          tag = '0006'O;
                       affected_Point_Codes,     tag = '0012'O;
                       info_String,              tag = '0004'O )"
        }
@@ -490,9 +490,9 @@ type record M3UA_DAUD
   integer                     messageLength,
   M3UA_DAUD_MessageParameters messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
 
 type set M3UA_DAUD_MessageParameters
@@ -502,7 +502,7 @@ type set M3UA_DAUD_MessageParameters
   M3UA_Affected_Point_Codes affected_Point_Codes,
   M3UA_Info_String          info_String optional
 } with { variant "TAG(network_Appearance,       tag = '0200'O;
-                      routing_Context,          tag = '0006'O; 
+                      routing_Context,          tag = '0006'O;
                       affected_Point_Codes,     tag = '0012'O;
                       info_String,              tag = '0004'O )"
        }
@@ -518,9 +518,9 @@ type record M3UA_SCON
   integer                     messageLength,
   M3UA_SCON_MessageParameters messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
 
 type set M3UA_SCON_MessageParameters
@@ -532,7 +532,7 @@ type set M3UA_SCON_MessageParameters
   M3UA_Congestion_Indicators congestion_Indicators optional,
   M3UA_Info_String           info_String optional
 } with { variant "TAG(network_Appearance,       tag = '0200'O;
-                      routing_Context,          tag = '0006'O; 
+                      routing_Context,          tag = '0006'O;
                       affected_Point_Codes,     tag = '0012'O;
                       concerned_Destination,    tag = '0206'O;
                       congestion_Indicators,    tag = '0205'O;
@@ -550,9 +550,9 @@ type record M3UA_DUPU
   integer                     messageLength,
   M3UA_DUPU_MessageParameters messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
 
 type set M3UA_DUPU_MessageParameters
@@ -563,31 +563,31 @@ type set M3UA_DUPU_MessageParameters
   M3UA_User_Cause           user_Cause,
   M3UA_Info_String          info_String optional
 } with { variant "TAG(network_Appearance,       tag = '0200'O;
-                      routing_Context,          tag = '0006'O; 
+                      routing_Context,          tag = '0006'O;
                       affected_Point_Codes,     tag = '0012'O;
                       user_Cause,               tag = '0204'O;
                       info_String,              tag = '0004'O )"
        }
- 
- 
+
+
 //  M3UA_DRST PDU
 //  NOTE1 : DRST should not come and will be dropped if it comes
 //  NOTE2 : messageParameters is simpified implementation as octetstring
 //++++++++++++++++++++++++++++++++++++++++++++++++++
-type record M3UA_DRST 
-{                
+type record M3UA_DRST
+{
   OCT1                        version,
   OCT1                        reserved,
   OCT2                        messageClassAndType,
   integer                     messageLength,
   octetstring                 messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
- 
-     
+
+
 //  M3UA_ASPUP
 //++++++++++++++++++++++++++++++++++++++++++++++++++
 type record M3UA_ASPUP
@@ -598,23 +598,23 @@ type record M3UA_ASPUP
   integer                      messageLength,
   M3UA_ASPUP_MessageParameters messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
 
-type set M3UA_ASPUP_MessageParameters 
+type set M3UA_ASPUP_MessageParameters
 {
   M3UA_ASP_Identifier aSP_Identifier optional,
   M3UA_Info_String    info_String optional
 } with { variant "TAG(aSP_Identifier,      tag = '0011'O;
                       info_String,         tag = '0004'O; )"
        }
-  
-  
-//M3UA_ASPUP_Ack  
-//++++++++++++++++++++++++++++++++++++++++++++++++++  
-type record M3UA_ASPUP_Ack  
+
+
+//M3UA_ASPUP_Ack
+//++++++++++++++++++++++++++++++++++++++++++++++++++
+type record M3UA_ASPUP_Ack
 {
   OCT1                             version,
   OCT1                             reserved,
@@ -622,9 +622,9 @@ type record M3UA_ASPUP_Ack
   integer                          messageLength,
   M3UA_ASPUP_Ack_MessageParameters messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
 
 type set M3UA_ASPUP_Ack_MessageParameters
@@ -632,11 +632,11 @@ type set M3UA_ASPUP_Ack_MessageParameters
   M3UA_Info_String   info_String optional
 } with { variant "TAG(info_String,         tag = '0004'O; )"
        }
-     
-     
+
+
 //M3UA_ASPDN
-//++++++++++++++++++++++++++++++++++++++++++++++++++   
-type record M3UA_ASPDN 
+//++++++++++++++++++++++++++++++++++++++++++++++++++
+type record M3UA_ASPDN
 {
   OCT1                         version,
   OCT1                         reserved,
@@ -644,9 +644,9 @@ type record M3UA_ASPDN
   integer                      messageLength,
   M3UA_ASPDN_MessageParameters messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
 
 type set M3UA_ASPDN_MessageParameters
@@ -658,7 +658,7 @@ type set M3UA_ASPDN_MessageParameters
 
 //M3UA_ASPDN_Ack
 //++++++++++++++++++++++++++++++++++++++++++++++++++
-type record M3UA_ASPDN_Ack 
+type record M3UA_ASPDN_Ack
 {
   OCT1                             version,
   OCT1                             reserved,
@@ -666,9 +666,9 @@ type record M3UA_ASPDN_Ack
   integer                          messageLength,
   M3UA_ASPDN_Ack_MessageParameters messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
 
 type set M3UA_ASPDN_Ack_MessageParameters
@@ -677,10 +677,10 @@ type set M3UA_ASPDN_Ack_MessageParameters
 } with { variant "TAG(info_String,         tag = '0004'O;)"
        }
 
- 
+
 // M3UA_BEAT
-//++++++++++++++++++++++++++++++++++++++++++++++++++ 
-type record M3UA_BEAT 
+//++++++++++++++++++++++++++++++++++++++++++++++++++
+type record M3UA_BEAT
 {
   OCT1                        version,
   OCT1                        reserved,
@@ -688,9 +688,9 @@ type record M3UA_BEAT
   integer                     messageLength,
   M3UA_BEAT_MessageParameters messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
 
 type set M3UA_BEAT_MessageParameters
@@ -701,8 +701,8 @@ type set M3UA_BEAT_MessageParameters
 
 
 // M3UA_BEAT_Ack
-//++++++++++++++++++++++++++++++++++++++++++++++++++ 
-type record M3UA_BEAT_Ack 
+//++++++++++++++++++++++++++++++++++++++++++++++++++
+type record M3UA_BEAT_Ack
 {
   OCT1                            version,
   OCT1                            reserved,
@@ -710,9 +710,9 @@ type record M3UA_BEAT_Ack
   integer                         messageLength,
   M3UA_BEAT_Ack_MessageParameters messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
 
 type set M3UA_BEAT_Ack_MessageParameters
@@ -723,7 +723,7 @@ type set M3UA_BEAT_Ack_MessageParameters
 
 
 // M3UA_ASPAC
-//++++++++++++++++++++++++++++++++++++++++++++++++++ 
+//++++++++++++++++++++++++++++++++++++++++++++++++++
 type record M3UA_ASPAC
 {
   OCT1                         version,
@@ -732,24 +732,24 @@ type record M3UA_ASPAC
   integer                      messageLength,
   M3UA_ASPAC_MessageParameters messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
 
 type set M3UA_ASPAC_MessageParameters
 {
-  M3UA_Traffic_Mode_Type    traffic_Mode_Type optional, 
+  M3UA_Traffic_Mode_Type    traffic_Mode_Type optional,
   M3UA_Routing_Context      routing_Context optional,
   M3UA_Info_String          info_String optional
-} with { variant "TAG(traffic_Mode_Type,   tag = '000B'O; 
+} with { variant "TAG(traffic_Mode_Type,   tag = '000B'O;
                       routing_Context,     tag = '0006'O;
                       info_String,         tag = '0004'O; )"
        }
 
 
 // M3UA_ASPAC_Ack
-//++++++++++++++++++++++++++++++++++++++++++++++++++ 
+//++++++++++++++++++++++++++++++++++++++++++++++++++
 type record M3UA_ASPAC_Ack
 {
   OCT1                             version,
@@ -758,38 +758,38 @@ type record M3UA_ASPAC_Ack
   integer                          messageLength,
   M3UA_ASPAC_Ack_MessageParameters messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
 
 type set M3UA_ASPAC_Ack_MessageParameters
 {
-  M3UA_Traffic_Mode_Type   traffic_Mode_Type optional, 
+  M3UA_Traffic_Mode_Type   traffic_Mode_Type optional,
   M3UA_Routing_Context     routing_Context optional,
   M3UA_Info_String         info_String optional
 } with { variant "TAG(traffic_Mode_Type,   tag = '000B'O;
                       routing_Context,     tag = '0006'O;
                       info_String,         tag = '0004'O; )"
        }
- 
+
 
 // M3UA_ASPIA
-//++++++++++++++++++++++++++++++++++++++++++++++++++  
+//++++++++++++++++++++++++++++++++++++++++++++++++++
 type record M3UA_ASPIA
-{ 
+{
   OCT1                         version,
   OCT1                         reserved,
   OCT2                         messageClassAndType,
   integer                      messageLength,
   M3UA_ASPIA_MessageParameters messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
- 
-type set M3UA_ASPIA_MessageParameters 
+
+type set M3UA_ASPIA_MessageParameters
 {
   M3UA_Routing_Context    routing_Context optional,
   M3UA_Info_String        info_String optional
@@ -797,45 +797,45 @@ type set M3UA_ASPIA_MessageParameters
                       info_String,         tag = '0004'O; )"
        }
 
- 
+
 // M3UA_ASPIA_Ack
-//++++++++++++++++++++++++++++++++++++++++++++++++++  
+//++++++++++++++++++++++++++++++++++++++++++++++++++
 type record M3UA_ASPIA_Ack
-{ 
+{
   OCT1                             version,
   OCT1                             reserved,
   OCT2                             messageClassAndType,
   integer                          messageLength,
   M3UA_ASPIA_Ack_MessageParameters messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
 
-type set M3UA_ASPIA_Ack_MessageParameters 
+type set M3UA_ASPIA_Ack_MessageParameters
 {
   M3UA_Routing_Context     routing_Context optional,
   M3UA_Info_String         info_String optional
 } with { variant "TAG(routing_Context,     tag = '0006'O;
                       info_String,         tag = '0004'O; )"
        }
- 
- 
+
+
 //  M3UA_REG_REQ
 //  NOTE1 : REG REQ should not come and will be dropped if it comes
 //++++++++++++++++++++++++++++++++++++++++++++++++++
-type record M3UA_REG_REQ 
-{                
+type record M3UA_REG_REQ
+{
   OCT1                        version,
   OCT1                        reserved,
   OCT2                        messageClassAndType,
   integer                     messageLength,
   M3UA_Routing_Keys           messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
 
 type record of M3UA_Routing_Key M3UA_Routing_Keys;
@@ -843,17 +843,17 @@ type record of M3UA_Routing_Key M3UA_Routing_Keys;
 //  M3UA_REG_RSP
 //  NOTE1 : REG RSP should not come and will be dropped if it comes
 //++++++++++++++++++++++++++++++++++++++++++++++++++
-type record M3UA_REG_RSP 
-{                
+type record M3UA_REG_RSP
+{
   OCT1                        version,
   OCT1                        reserved,
   OCT2                        messageClassAndType,
   integer                     messageLength,
   M3UA_Registration_Results   messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
 
 type record of M3UA_Registration_Result M3UA_Registration_Results;
@@ -862,17 +862,17 @@ type record of M3UA_Registration_Result M3UA_Registration_Results;
 //  M3UA_DEREG_REQ
 //  NOTE1 : DEREG REQ should not come and will be dropped if it comes
 //++++++++++++++++++++++++++++++++++++++++++++++++++
-type record M3UA_DEREG_REQ 
-{                
+type record M3UA_DEREG_REQ
+{
   OCT1                        version,
   OCT1                        reserved,
   OCT2                        messageClassAndType,
   integer                     messageLength,
   M3UA_DEREG_REQ_MsgParams    messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
 
 type set M3UA_DEREG_REQ_MsgParams
@@ -884,17 +884,17 @@ type set M3UA_DEREG_REQ_MsgParams
 //  M3UA_DEREG_RSP
 //  NOTE1 : DEREG RSP should not come and will be dropped if it comes
 //++++++++++++++++++++++++++++++++++++++++++++++++++
-type record M3UA_DEREG_RSP 
-{                
+type record M3UA_DEREG_RSP
+{
   OCT1                        version,
   OCT1                        reserved,
   OCT2                        messageClassAndType,
   integer                     messageLength,
   M3UA_Deregistration_Results messageParameters
 } with { variant (messageLength) "LENGTHTO(version,reserved,messageClassAndType,
-                                           messageLength,messageParameters)"; 
+                                           messageLength,messageParameters)";
          variant (messageLength) "FIELDLENGTH(32)";
-         variant (messageLength) "BYTEORDER(last)"; 
+         variant (messageLength) "BYTEORDER(last)";
        }
 
 type record of M3UA_Deregistration_Result M3UA_Deregistration_Results;
