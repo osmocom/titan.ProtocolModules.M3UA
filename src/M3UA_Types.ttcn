@@ -394,7 +394,10 @@ type set M3UA_NOTIFY_MessageParameters
   M3UA_ASP_Identifier      aSP_Identifier optional,
   M3UA_Routing_Context     routing_Context optional,
   M3UA_Info_String         info_String optional
-}
+} with { variant "TAG(aSP_Identifier,      tag = '0011'O;
+                      routing_Context,     tag = '0006'O;
+                      info_String,         tag = '0004'O; )"
+       }
 
 //  M3UA_DATA PDU
 //++++++++++++++++++++++++++++++++++++++++++++++++++
